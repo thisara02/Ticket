@@ -128,12 +128,17 @@ npm install
 print_status "Building frontend application..."
 npm run build
 
+# Check if build was successful
+if [ ! -d "$FRONTEND_PATH/dist" ] || [ -z "$(ls -A "$FRONTEND_PATH/dist")" ]; then
+    print_error "Frontend build failed: $FRONTEND_PATH/dist does not exist or is empty."
+    exit 1
+fi
+
 # 2. Deploy Frontend to Nginx
 print_status "Deploying frontend to Nginx..."
 FRONTEND_DEPLOY_PATH="$DEPLOY_PATH/Ticketing"
-if [ -d "$FRONTEND_DEPLOY_PATH" ]; then
-    rm -rf "$FRONTEND_DEPLOY_PATH"/*
-fi
+mkdir -p "$FRONTEND_DEPLOY_PATH"
+rm -rf "$FRONTEND_DEPLOY_PATH"/*
 cp -r "$FRONTEND_PATH/dist"/* "$FRONTEND_DEPLOY_PATH/"
 
 # 3. Deploy Backend
