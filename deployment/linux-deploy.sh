@@ -130,7 +130,7 @@ npm run build
 
 # 2. Deploy Frontend to Nginx
 print_status "Deploying frontend to Nginx..."
-FRONTEND_DEPLOY_PATH="$DEPLOY_PATH/frontend"
+FRONTEND_DEPLOY_PATH="$DEPLOY_PATH/Ticketing"
 if [ -d "$FRONTEND_DEPLOY_PATH" ]; then
     rm -rf "$FRONTEND_DEPLOY_PATH"/*
 fi
